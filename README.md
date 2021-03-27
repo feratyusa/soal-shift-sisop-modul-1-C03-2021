@@ -1,11 +1,16 @@
 # Penyelesaian Soal Shift Modul 1
+
+- Ega Prabu Pamungkas (05111940000014)
+- A. Zidan Abdillah Majid (05111940000070)
+- Jundullah Hanif Robbani (05111940000144)
+
 -------------------------------------------
-# Soal 1
+## Soal 1
 
-# Soal 2
+## Soal 2
 
-# Soal 3
-## Soal 3a
+## Soal 3
+### Soal 3a
 Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 1. Mendownload gambar pada link yang disediakan dan menaruh log pada Foto.log.
 2. Mengecek foto yang didownload apakah sama dengan yang telah didownload sebelumnya.
@@ -17,7 +22,7 @@ Permasalahan kedua, dapat diselesaikan dengan mengecek jika nomor kurang dari 10
 
 Permasalahan ketiga, diselesaikan dengan mengecek md5sum file yang telah terdownload sebelum file tersebut diubah penamaannya menjadi "Koleksi_XX"
 
-## Soal 3b
+### Soal 3b
 Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 1. Menjalankan script tepat sekali pada jam 8 malam di tanggal 1,8,... dan tanggal 2,6,...
 2. Membuat direktori dengan nama tanggal didownloadnya Koleksi tersebut.
@@ -27,7 +32,7 @@ Pada permasalahan pertama, untuk membuat bash script berjalan dengan iterasi +7 
 
 Pada permasalahan kedua dan ketiga, dapat dijalankan dengan menambahkan && pada setiap setelah command, urutan yang dilakukan yaitu membuat direktori dengan nama menggunakan "mkdir $(date +%d%m%Y)", menjalankan bash script soal3a, memindahkan Foto.log dan koleksi foto dengan command "mv Foto.log Koleksi_* $(date +%d%m%Y)".
 
-## Soal 3c
+### Soal 3c
 Permasalahan dalam soal ini dapat dibagi menjadi 2 bagian.
 1. Memodifikasi bash script soal3a untuk mendownload foto pada "https://loremflickr.com/320/240/bunny"
 2. Meletakkan Foto.log dan koleksi foto yang didownload di folder "Kucing_(tanggal sekarang)" jika yang didownload foto kucing, "Kelinci_(tanggal sekarang)" jika yang didownload foto kelinci
@@ -39,7 +44,7 @@ Permasalahan kedua, dapat diselesaikan dengan terlebih dahulu mendefinisikan fun
 
 Permasalahan ketiga, dengan cara mengecek apakah direktori yang dibuat kemarin direktori untuk kucing atau direktori untuk kelinci. Command untuk mengambil tanggal kemarin adalah "$(date -d 'yesterday' +%d%m%Y)". Jika nama direktori yang dibuat kemarin "Kelinci_(tanggal kemarin)" maka jalankan fungsi kucing, jika "Kucing_(tanggal kemarin)" jalankan fungsi kelinci, selain itu semua yang aku pilih duluan adalah mendownload foto kucing maka jalankan fungsi kucing terlebih dahulu.
 
-## Soal 3d
+### Soal 3d
 Permasalahan dalam soal ini hanya ada dua.
 1. Meng-compress folder-folder Kucing dan Kelinci dengan password tanggal sekarang.
 2. Menghapus folder-folder Kucing dan Kelinci yang telah di-compress.
@@ -48,7 +53,7 @@ Permasalahan pertama, cukup sederhana dengan menggunakan command 'zip' ditambah 
 
 Permasalahan kedua cukup sederhana, menghapus semua direktori dengan menggunakan 'rm -r' diikuti direktori yang akan dihapus, yaitu kucing dan kelinci.
 
-## Soal 3e
+### Soal 3e
 Permasalahan dalam soal ini ada dua.
 1. Mengkompres semua folder Kucing dan Kelinci pada hari Senin - Jumat pukul 7 sampai 6 sore
 2. Meng-ekstrak 'Koleksi.zip' selain hari yang disebutkan di nomor 1 dan menghapus file 'Koleksi.zip'
