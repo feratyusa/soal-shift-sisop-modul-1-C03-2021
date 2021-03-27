@@ -16,7 +16,7 @@ get_user="$(sed "$regex_user" $syslog | sed 's/\(.*\)/user["\1"]=0;/')"
 eval $get_user
 
 # count pesan error per pesan
-get_error_msg=$(/bin/grep ERROR $syslog | sed "$regex_pesan" $syslog | sed 's/\(.*\)/error_msg["\1"]=$((${error_msg["\1"]}+1));/')
+get_error_msg=$(/bin/grep ERROR $syslog | sed "$regex_pesan" | sed 's/\(.*\)/error_msg["\1"]=$((${error_msg["\1"]}+1));/')
 eval $get_error_msg
 
 # mendapatkan count info dan error per user
