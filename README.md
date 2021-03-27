@@ -24,7 +24,7 @@
 1. Menghitung semua pesan error yang ada di `syslog.log`, lalu dimasukkan ke variabel `error_msg`, dengan pesan log digunakan sebagai key agar unik. Di sini dapat memanfaatkan program `sed` untuk membuat syntax shell increment `error_msg[KEY]` yang kemudian dieksekusi oleh `eval`.
 1. Menghitung banyak pesan error dan info per user dengan memanfaatkan key dari array `user`. Key dari `user` didapatkan dengan `"${!user[@]}"`, lalu dilooping dan key-nya digunakan oleh grep untuk mencari pesan error dan info terkait. Untuk grep, `grep -E "ERROR.*$key" $syslog` digunakan untuk mencari error, dan `grep -E "INFO.*$key" $syslog ` digunakan untuk mencari info. Setelah dicari barisnya menggunakan grep, penghitungan baris dilakukan dengan pipeline hasil grep ke perintah `wc -l`.
 1. Dilakukan looping untuk memasukkan hasil ke file `*.csv` terkait. Untuk `error_message.csv`, sebelum dimasukkan file, isi disorting terlebih dahulu dengan perintah `sort -k2 -n -t, -r`, dengan `-k2` menunjukkan sorting berdasarkan kolom ke-2 (Count), `-n` menunjukkan sorting ala angka, `-t,` menunjukkan delimiter menggunakan koma, `-r` menunjukkan sorting secara descending. Untuk `user_statistic.csv`, sebelum dimasukkan ke file, isi disorting terlebih dahulu dengan perintah `sort -k1 -t,`.
-### Sreenshot
+### Screenshot
 ### Kendala yang dialami
 Masih belum lancar membaca, maupun membuat regex. Mungkin karena regex tidak terlihat seperti kalimat biasa, sehingga tidak enak di mata.
 ## Soal 2
