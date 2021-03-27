@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Penyelesaian Soal Shift Modul 1
 -------------------------------------------
 # Soal 1
@@ -57,3 +58,9 @@ Permasalahan pertama, dapat diselesaikan dengan menggunakan cron jobs dimana jam
 
 Permasalahan kedua, diselesaikan dengan membuat 2 cron job dimana yang satu memiliki konfigurasi * 0-6,18-23 * * 1-5 dimana aturan itu membuat setiap menit pada jam 0 sampai jam 6 juga pada jam 18 sampai jam 23 pada hari Senin sampai Jumat untuk menjalankan command 'find '/home/prabu/soal3/Koleksi.zip' -exec /usr/bin/unzip -P $(date +%d%m%Y) {} \; -delete' dimana command tersebut mencari file Koleksi.zip dan menjalankan 'unzip' dengan memasukkan password berupa tanggal sekarang dan setelah itu menghapus file 'Koleksi.zip tersebut'. Cron job juga dibuat untuk hari Sabtu dan Minggu sehingga menjadi '* * * * 6-7'.
 
+=======
+# sisop-test
+=======
+# soal-shift-sisop-modul-1-C03-2021
+Penyelesaian Soal Shift SISOP Modul 1 2021
+>>>>>>> 656fed772f2e21a26719598d34e60bd6d29d17f3
