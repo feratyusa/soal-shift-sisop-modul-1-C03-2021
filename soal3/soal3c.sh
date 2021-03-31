@@ -11,15 +11,13 @@ kucing(){
 			i=1
 			sama=1
 			while [[ $i -lt $nomor ]]; do
-				if [[ $i -lt 10 ]]; then
-					md5sum < Koleksi_0$i > compPic
-				else
-					md5sum < Koleksi_$i > compPic				
-				fi
+				banding="Koleksi_`printf %02d ${i}`"
+				md5sum < $banding > compPic
 				file2=compPic
-				if cmp -s file1 file2; then
-					$sama=2
-					let $nomor=$nomor-1
+				if cmp -s $file1 $file2; then
+					let sama=2
+					echo "Sama dengan $banding"
+					# let nomor=$nomor-1
 					break
 				fi
 				let i=$i+1
@@ -27,13 +25,11 @@ kucing(){
 			rm testPic
 			rm compPic
 			if [[ $sama -eq 1 ]]; then
-				if [[ $nomor -lt 10 ]]; then
-					mv kitten Koleksi_0$nomor
-				else
-					mv kitten Koleksi_$nomor
-				fi
+				echo "Tidak sama $nomor"
+				mv kitten Koleksi_`printf %02d ${nomor}`
 			else
 				rm kitten
+				let nomor=$nomor-1
 			fi
 		else
 			mv kitten Koleksi_01
@@ -60,15 +56,13 @@ kelinci(){
 			i=1
 			sama=1
 			while [[ $i -lt $nomor ]]; do
-				if [[ $i -lt 10 ]]; then
-					md5sum < Koleksi_0$i > compPic
-				else
-					md5sum < Koleksi_$i > compPic				
-				fi
+				banding="Koleksi_`printf %02d ${i}`"
+				md5sum < $banding > compPic
 				file2=compPic
-				if cmp -s file1 file2; then
-					$sama=2
-					let $nomor=$nomor-1
+				if cmp -s $file1 $file2; then
+					let sama=2
+					echo "Sama dengan $banding"
+					# let nomor=$nomor-1
 					break
 				fi
 				let i=$i+1
@@ -76,13 +70,11 @@ kelinci(){
 			rm testPic
 			rm compPic
 			if [[ $sama -eq 1 ]]; then
-				if [[ $nomor -lt 10 ]]; then
-					mv bunny Koleksi_0$nomor
-				else
-					mv bunny Koleksi_$nomor
-				fi
+				echo "Tidak sama $nomor"
+				mv bunny Koleksi_`printf %02d ${nomor}`
 			else
 				rm bunny
+				let nomor=$nomor-1
 			fi
 		else
 			mv bunny Koleksi_01
@@ -106,5 +98,5 @@ if [ -d "$path/Kelinci_$prevFOLDER" ]; then
 elif [ -d "$path/Kucing_$prevFOLDER" ]; then
 	kelinci
 else
-	kucing
+	kelinci
 fi

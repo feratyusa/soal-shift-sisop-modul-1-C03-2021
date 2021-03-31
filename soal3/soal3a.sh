@@ -11,15 +11,13 @@ while [[ $iterasi -lt 24 ]]; do
 		i=1
 		sama=1
 		while [[ $i -lt $nomor ]]; do
-			if [[ $i -lt 10 ]]; then
-				md5sum < Koleksi_0$i > compPic
-			else
-				md5sum < Koleksi_$i > compPic				
-			fi
+			banding="Koleksi_`printf %02d ${i}`"
+			md5sum < $banding > compPic
 			file2=compPic
-			if cmp -s file1 file2; then
-				$sama=2
-				let $nomor=$nomor-1
+			if cmp -s $file1 $file2; then
+				let sama=2
+				echo "Sama dengan $banding"
+				# let nomor=$nomor-1
 				break
 			fi
 			let i=$i+1
@@ -27,13 +25,11 @@ while [[ $iterasi -lt 24 ]]; do
 		rm testPic
 		rm compPic
 		if [[ $sama -eq 1 ]]; then
-			if [[ $nomor -lt 10 ]]; then
-				mv kitten Koleksi_0$nomor
-			else
-				mv kitten Koleksi_$nomor
-			fi
+			echo "Tidak sama $nomor"
+			mv kitten Koleksi_`printf %02d ${nomor}`
 		else
 			rm kitten
+			let nomor=$nomor-1
 		fi
 	else
 		mv kitten Koleksi_01

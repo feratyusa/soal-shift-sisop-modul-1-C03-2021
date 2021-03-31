@@ -21,6 +21,4 @@
 # 
 # m h  dom mon dow   command
 * 7-17 * * 1-5 ./home/prabu/soal3/soal3d.sh
-* 0-6,18-23 * * 1-5 find '/home/prabu/soal3/Koleksi.zip' -exec /usr/bin/unzip -P $(date +%d%m%Y) {} \; -delete
-* * * * 6-7 find '/home/prabu/soal3/Koleksi.zip' -exec /usr/bin/unzip -q -P $(date 'yesterday' +%d%m%Y) {} \; -delete
-
+0 18 * * 1-5 /usr/bin/find "/home/prabu/soal3/Koleksi.zip" -exec /usr/bin/unzip -P $(date +%d%m%Y) {} \; -delete
