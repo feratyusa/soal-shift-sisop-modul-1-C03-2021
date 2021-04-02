@@ -20,5 +20,5 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 # 
 # m h  dom mon dow   command
-0 20 1-31/7 * * mkdir $(date +%d%m%Y) && ./home/prabu/soal3/soal3a.sh && mv Foto.log Koleksi_* -t $(date +%d%m%Y)
+0 20 1/7,2/4 * * mkdir $(date +%d%m%Y) && ./home/prabu/soal3/soal3a.sh && mv Foto.log Koleksi_* -t $(date +%d%m%Y)
 

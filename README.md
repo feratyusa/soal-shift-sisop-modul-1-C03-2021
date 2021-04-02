@@ -67,9 +67,11 @@ Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 2. Membuat direktori dengan nama tanggal didownloadnya Koleksi tersebut.
 3. Memindahkan Foto.log dan semua koleksi foto ke dalam direktori.
 
-Pada permasalahan pertama, untuk membuat bash script berjalan dengan iterasi +7 dimulai dari 1, dapat dibuat pada bagian tanggal 1-31/7, begitu juga dengan iterasi +4 dimulai dari 2 yaitu dibuat 2-31/4 pada cron jobs. Selain itu pada bagain jam dibuat 20, serta menit dibuat 0 agar tepat berjalan satu kali tepat pada jam 8 malam.
+Pada permasalahan pertama, menit dapat dibuat `0`, jam dibuat `20`, agar dapat berjalan sekali, untuk tanggal dapat dibuat `1/7,2/4` dimana `/` menunjukkan step atau jumlah sehingga untuk 1 akan +7 terus, sedangkan untuk 2 akan +4 terus.
 
-Pada permasalahan kedua dan ketiga, dapat dijalankan dengan menambahkan && pada setiap setelah command, urutan yang dilakukan yaitu membuat direktori dengan nama menggunakan "mkdir $(date +%d%m%Y)", menjalankan bash script soal3a, memindahkan Foto.log dan koleksi foto dengan command "mv Foto.log Koleksi_* $(date +%d%m%Y)".
+Pada permasalahan kedua dan ketiga, dapat dijalankan dengan menambahkan `&&` pada setiap setelah command, urutan yang dilakukan yaitu membuat direktori dengan nama menggunakan `mkdir $(date +%d%m%Y)`, menjalankan bash script `soal3a.sh`, memindahkan `Foto.log` dan koleksi foto dengan command `mv Foto.log Koleksi_* $(date +%d%m%Y)`.
+
+*GAMBAR CRON3b*
 
 ### Soal 3c
 Permasalahan dalam soal ini dapat dibagi menjadi 2 bagian.
@@ -116,3 +118,6 @@ Permasalahan kedua, dapat diselesaikan dengan menggunakan cron job dimana menit 
 ![cron3e](https://user-images.githubusercontent.com/68368240/113421680-b94c7b80-93f5-11eb-8b83-9c9ed6508323.png)
 |:--:| 
 | *Cron job untuk 3e* |
+
+### Kendala yang dialami
+Kesulitan dalam membuat cron job, mencari yang paling sederhana. Pemindahan penggunaan dari `bash` ke `AWK` untuk *soal3a* cukup bingung bagaimana `AWK` men-filter dan menjalankan prosesnya. Sempat tidak teliti dalam penggunaan variabel, dimana kurang penambahan `$` sebelum variabel sehingga beberapa script tidak berjalan. Penulisan lapres belum terlalu lihai dalam penggunaan  `ini` atau *ini* atau yang lainnya agar MD mudah dipahami dan dibaca.
