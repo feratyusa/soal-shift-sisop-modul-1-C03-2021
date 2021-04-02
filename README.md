@@ -61,7 +61,7 @@ Dengan begitu dapat dibandingkan menggunakan awk dan bash script.
 
 Penamaan file dapat menggunakan `%02d` untuk memberikan padding `0` di depan pada saat penamaan file.
 
-### Soal 3b *(Masih diperbaiki)*
+### Soal 3b
 Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 1. Menjalankan script tepat sekali pada jam 8 malam di tanggal 1,8,... dan tanggal 2,6,...
 2. Membuat direktori dengan nama tanggal didownloadnya Koleksi tersebut.
@@ -71,7 +71,9 @@ Pada permasalahan pertama, menit dapat dibuat `0`, jam dibuat `20`, agar dapat b
 
 Pada permasalahan kedua dan ketiga, dapat dijalankan dengan menambahkan `&&` pada setiap setelah command, urutan yang dilakukan yaitu membuat direktori dengan nama menggunakan `mkdir $(date +%d%m%Y)`, menjalankan bash script `soal3a.sh`, memindahkan `Foto.log` dan koleksi foto dengan command `mv Foto.log Koleksi_* $(date +%d%m%Y)`.
 
-*GAMBAR CRON3b*
+![cron3b](https://user-images.githubusercontent.com/68368240/113423682-1a298300-93f9-11eb-9327-069ca6e91abc.png)
+|:--:| 
+| *Cron job untuk soal 3b* |
 
 ### Soal 3c
 Permasalahan dalam soal ini dapat dibagi menjadi 2 bagian.
