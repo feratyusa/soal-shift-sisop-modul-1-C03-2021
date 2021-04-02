@@ -46,11 +46,16 @@ Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 
 Permasalahan pertama, dapat diselesaikan dengan menggunakan `wget -o temp.log 'https://loremflickr.com/320/240/kitten'` dimana command `wget` digunakan untuk mendownload gambar pada link yang diberikan lalu option `-o` untuk menyimpan log download pada sebuah file. Log file dibuat `temp.log` yang akan digunakan untuk membandingkan apakah ada foto sama yang telah didownload, menggunakan **awk**. Membandingakannya dengan cara membandingkan log download yang telah dilakukan dengan log download sebelumnya. Yang membedakan log download satu dengan lainnya adalah lokasi mendownload gambarnya.
 
-*`GAMBAR LOG`*
+![log](https://user-images.githubusercontent.com/68368240/113421376-32979e80-93f5-11eb-8368-da0115646e73.png)
+|:--:|
+| *Baris Location pada Log* |
+
 
 Dengan begitu dapat dibandingkan menggunakan awk dan bash script.
 
-*`GAMBAR`*
+![compare-image](https://user-images.githubusercontent.com/68368240/113421445-535ff400-93f5-11eb-9815-905f75633801.png)
+|:--:| 
+| *Compare script using AWK and BASH* |
 
 `-v` untuk mempassing variable yang akan digunakan *awk*. `~` digunakan untuk membandingkan string dimana sebelah kiri adalah ekspresi biasa dan sebelah kanan adalah string-nya, sehingga jika sama akan bernilai 1 jika tidak akan bernilai 0. Jika bernilai 1 variable `compare` akan berisi string, jika bernilai 0 maka `compare` akan kosong sehingga untuk melihat apakah sama atau tidak dengan melihat panjang string `compare` apakah lebih besar dari 1 atau tidak.
 
@@ -78,7 +83,9 @@ Permasalahan kedua, dapat diselesaikan dengan terlebih dahulu mendefinisikan fun
 
 Permasalahan ketiga, dengan cara mengecek apakah direktori yang dibuat kemarin direktori untuk kucing atau direktori untuk kelinci. Command untuk mengambil tanggal kemarin adalah `$(date -d 'yesterday' +%d%m%Y)`. Jika nama direktori yang dibuat kemarin *Kelinci_(tanggal kemarin)* maka jalankan fungsi kucing, jika *Kucing_(tanggal kemarin)* jalankan fungsi *kelinci*, selain itu semua yang dipilih duluan adalah mendownload foto kucing maka jalankan fungsi *kucing* terlebih dahulu. `pwd` digunakan agar path yang digunakan akan sama dengan tempat `soal3c.sh` dijalankan.
 
-*GAMBAR 3c*
+![folder-bergantian](https://user-images.githubusercontent.com/68368240/113421509-7094c280-93f5-11eb-962a-3cf0a76b32e1.png)
+|:--:| 
+| *Script mengecek Folder kemarin* |
 
 ### Soal 3d
 Permasalahan dalam soal ini hanya ada dua.
@@ -87,9 +94,15 @@ Permasalahan dalam soal ini hanya ada dua.
 
 Permasalahan pertama, cukup sederhana dengan menggunakan command `zip` ditambah opsi `-e` untuk menambahkan enkripsi, `-q` untuk tidak menampilkan comment prompts, -P untuk menambahkan enkripsinya. Enkripsi tanggal sekarang dapat diambil dengan `$(date +%d%m%Y)`. Lalu diikuti dengan nama zip yaitu *Koleksi.zip* dan semua direktori Kucing dan Kelinci dengan menambahkan `*` di belakangnya. 
 
+![zip](https://user-images.githubusercontent.com/68368240/113421566-8a360a00-93f5-11eb-94b3-089b32b1ee3a.png)
+|:--:| 
+| *Script untuk ZIP* |
+
 Permasalahan kedua cukup sederhana, menghapus semua direktori dengan menggunakan `rm -r` diikuti direktori yang akan dihapus, yaitu *kucing* dan *kelinci*. ` /dev/null 2>&1 ` agar input yang error maupun tidak, tidak ditampilkan di terminal. 
 
-*GAMBAR ZIP COMMAND*
+![menghapus-direktori](https://user-images.githubusercontent.com/68368240/113421602-99b55300-93f5-11eb-843e-ee0a7e997e3b.png)
+|:--:| 
+| *Menghapus direktori setelah di-zip* |
 
 ### Soal 3e
 Permasalahan dalam soal ini ada dua.
@@ -100,4 +113,6 @@ Permasalahan pertama, dapat diselesaikan dengan menggunakan cron jobs dimana men
 
 Permasalahan kedua, dapat diselesaikan dengan menggunakan cron job dimana menit dibuat `0`, jam dibuat `18`, hari dibuat `1-5` dimana `1` adalah Senin dan `5` adalah Kamis. Cron jobs di atas jadi hanya perlu dikerjakan satu kali.
 
-*GAMBAR CRON 3e*
+![cron3e](https://user-images.githubusercontent.com/68368240/113421680-b94c7b80-93f5-11eb-8b83-9c9ed6508323.png)
+|:--:| 
+| *Cron job untuk 3e* |
