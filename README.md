@@ -44,19 +44,25 @@ Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 2. Mengecek foto yang didownload apakah sama dengan yang telah didownload sebelumnya.
 3. Penamaan foto yang terdownload "Koleksi_XX".
 
-Permasalahan pertama, dapat diselesaikan dengan menggunakan "wget -a Foto.log 'https://loremflickr.com/320/240/kitten'" dimana command 'wget' digunakan untuk mendownload gambar pada link yang diberikan lalu option -a akan meletakkan log pada file Foto.log, jika tidak ada file maka akan membuat baru, jika sudah ada akan menambahkan log-nya pada akhir baris Foto.log.
+Permasalahan pertama, dapat diselesaikan dengan menggunakan `wget -o temp.log 'https://loremflickr.com/320/240/kitten'` dimana command `wget` digunakan untuk mendownload gambar pada link yang diberikan lalu option `-o` untuk menyimpan log download pada sebuah file. Log file dibuat `temp.log` yang akan digunakan untuk membandingkan apakah ada foto sama yang telah didownload, menggunakan **awk**. Membandingakannya dengan cara membandingkan log download yang telah dilakukan dengan log download sebelumnya. Yang membedakan log download satu dengan lainnya adalah lokasi mendownload gambarnya.
 
-Permasalahan kedua, dapat diselesaikan dengan mengecek jika nomor kurang dari 10 maka penamaanya "Koleksi_0$nomor", sedangkan jika lebih dari sama dengan 10 "Koleksi_$nomor" (meskipun permasalahan ini dapat diseslesaikan dengan mengganti penamaanya sendiri dengan "Koleksi_$nomor")
+*`GAMBAR LOG`*
 
-Permasalahan ketiga, diselesaikan dengan mengecek md5sum file yang telah terdownload sebelum file tersebut diubah penamaannya menjadi "Koleksi_XX"
+Dengan begitu dapat dibandingkan menggunakan awk dan bash script.
 
-### Soal 3b
+*`GAMBAR`*
+
+`-v` untuk mempassing variable yang akan digunakan *awk*. `~` digunakan untuk membandingkan string dimana sebelah kiri adalah ekspresi biasa dan sebelah kanan adalah string-nya, sehingga jika sama akan bernilai 1 jika tidak akan bernilai 0. Jika bernilai 1 variable `compare` akan berisi string, jika bernilai 0 maka `compare` akan kosong sehingga untuk melihat apakah sama atau tidak dengan melihat panjang string `compare` apakah lebih besar dari 1 atau tidak.
+
+Penamaan file dapat menggunakan `%02d` untuk memberikan padding `0` di depan pada saat penamaan file.
+
+### Soal 3b *(Masih diperbaiki)*
 Permasalahan dalam soal ini dapat dibagi menjadi 3 bagian.
 1. Menjalankan script tepat sekali pada jam 8 malam di tanggal 1,8,... dan tanggal 2,6,...
 2. Membuat direktori dengan nama tanggal didownloadnya Koleksi tersebut.
 3. Memindahkan Foto.log dan semua koleksi foto ke dalam direktori.
 
-Pada permasalahan pertama, untuk membuat bash script berjalan dengan iterasi +7 dimulai dari 1, dapat dibuat pada bagian tanggal 1-31/7, begitu juga dengan iterasi +4 dimulai dari 2 yaitu dibuat 2-31/4 pada cron jobs. Sel.ain itu pada bagain jam dibuat 20, serta menit dibuat 0 agar tepat berjalan satu kali tepat pada jam 8 malam.
+Pada permasalahan pertama, untuk membuat bash script berjalan dengan iterasi +7 dimulai dari 1, dapat dibuat pada bagian tanggal 1-31/7, begitu juga dengan iterasi +4 dimulai dari 2 yaitu dibuat 2-31/4 pada cron jobs. Selain itu pada bagain jam dibuat 20, serta menit dibuat 0 agar tepat berjalan satu kali tepat pada jam 8 malam.
 
 Pada permasalahan kedua dan ketiga, dapat dijalankan dengan menambahkan && pada setiap setelah command, urutan yang dilakukan yaitu membuat direktori dengan nama menggunakan "mkdir $(date +%d%m%Y)", menjalankan bash script soal3a, memindahkan Foto.log dan koleksi foto dengan command "mv Foto.log Koleksi_* $(date +%d%m%Y)".
 
@@ -66,26 +72,32 @@ Permasalahan dalam soal ini dapat dibagi menjadi 2 bagian.
 2. Meletakkan Foto.log dan koleksi foto yang didownload di folder "Kucing_(tanggal sekarang)" jika yang didownload foto kucing, "Kelinci_(tanggal sekarang)" jika yang didownload foto kelinci
 3. Menyetel agar bash script mendownload bergantian antara foto kucing dan foto kelinci, jika tanggal 31 kucing > tanggal 1 kelinci > dst.
 
-Permasalahan pertama, dapat diselesaikan dengan mudah yaitu mengubah link pada 'wget' sehingga mendownload foto pada "https://loremflickr.com/320/240/".
+Permasalahan pertama, dapat diselesaikan dengan mudah yaitu mengubah link pada `wget` sehingga mendownload foto pada "https://loremflickr.com/320/240/".
 
-Permasalahan kedua, dapat diselesaikan dengan terlebih dahulu mendefinisikan fungsi kucing dan kelinci sehingga dapat dipisah pembuatan direktorinya, dengan menggunakan 'mkdir $(date +%d%m%Y)', selain itu juga dicek jika direktori telah dibuat maka tidak perlu membuat direktori baru.
+Permasalahan kedua, dapat diselesaikan dengan terlebih dahulu mendefinisikan fungsi kucing dan kelinci sehingga dapat dipisah pembuatan direktorinya, dengan menggunakan `mkdir $(date +%d%m%Y)`, selain itu juga dicek jika direktori telah dibuat maka tidak perlu membuat direktori baru.
 
-Permasalahan ketiga, dengan cara mengecek apakah direktori yang dibuat kemarin direktori untuk kucing atau direktori untuk kelinci. Command untuk mengambil tanggal kemarin adalah "$(date -d 'yesterday' +%d%m%Y)". Jika nama direktori yang dibuat kemarin "Kelinci_(tanggal kemarin)" maka jalankan fungsi kucing, jika "Kucing_(tanggal kemarin)" jalankan fungsi kelinci, selain itu semua yang aku pilih duluan adalah mendownload foto kucing maka jalankan fungsi kucing terlebih dahulu.
+Permasalahan ketiga, dengan cara mengecek apakah direktori yang dibuat kemarin direktori untuk kucing atau direktori untuk kelinci. Command untuk mengambil tanggal kemarin adalah `$(date -d 'yesterday' +%d%m%Y)`. Jika nama direktori yang dibuat kemarin *Kelinci_(tanggal kemarin)* maka jalankan fungsi kucing, jika *Kucing_(tanggal kemarin)* jalankan fungsi *kelinci*, selain itu semua yang dipilih duluan adalah mendownload foto kucing maka jalankan fungsi *kucing* terlebih dahulu. `pwd` digunakan agar path yang digunakan akan sama dengan tempat `soal3c.sh` dijalankan.
+
+*GAMBAR 3c*
 
 ### Soal 3d
 Permasalahan dalam soal ini hanya ada dua.
 1. Meng-compress folder-folder Kucing dan Kelinci dengan password tanggal sekarang.
 2. Menghapus folder-folder Kucing dan Kelinci yang telah di-compress.
 
-Permasalahan pertama, cukup sederhana dengan menggunakan command 'zip' ditambah opsi -e untuk menambahkan enkripsi, -q untuk tidak menampilkan comment prompts, -P untuk menambahkan enkripsinya. Enkripsi tanggal sekarang dapat diambil dengan "$(date +%d%m%Y)". Lalu diikuti dengan nama zip yaitu 'Koleksi.zip' dan semua direktori Kucing dan Kelinci dengan menambahkan * di belakangnya. 
+Permasalahan pertama, cukup sederhana dengan menggunakan command `zip` ditambah opsi `-e` untuk menambahkan enkripsi, `-q` untuk tidak menampilkan comment prompts, -P untuk menambahkan enkripsinya. Enkripsi tanggal sekarang dapat diambil dengan `$(date +%d%m%Y)`. Lalu diikuti dengan nama zip yaitu *Koleksi.zip* dan semua direktori Kucing dan Kelinci dengan menambahkan `*` di belakangnya. 
 
-Permasalahan kedua cukup sederhana, menghapus semua direktori dengan menggunakan 'rm -r' diikuti direktori yang akan dihapus, yaitu kucing dan kelinci.
+Permasalahan kedua cukup sederhana, menghapus semua direktori dengan menggunakan `rm -r` diikuti direktori yang akan dihapus, yaitu *kucing* dan *kelinci*. ` /dev/null 2>&1 ` agar input yang error maupun tidak, tidak ditampilkan di terminal. 
+
+*GAMBAR ZIP COMMAND*
 
 ### Soal 3e
 Permasalahan dalam soal ini ada dua.
 1. Mengkompres semua folder Kucing dan Kelinci pada hari Senin - Jumat pukul 7 sampai 6 sore
-2. Meng-ekstrak 'Koleksi.zip' selain hari yang disebutkan di nomor 1 dan menghapus file 'Koleksi.zip'
+2. Meng-ekstrak *Koleksi.zip* selain hari yang disebutkan di nomor 1 dan menghapus file 'Koleksi.zip'
 
-Permasalahan pertama, dapat diselesaikan dengan menggunakan cron jobs dimana jam dibuat 7-17, serta hari dalam satu minggu dibuat 1-5, serta yang lain dibuat all ("\*") lalu menjalankan bash script dari soal3d, bernama 'soal3d.sh'
+Permasalahan pertama, dapat diselesaikan dengan menggunakan cron jobs dimana menit dibuat `0`, jam dibuat `7`, hari dibuat `1-5` dimana `1` adalah Senin dan `5` adalah Kamis. Cron jobs di atas jadi hanya perlu dikerjakan satu kali.
 
-Permasalahan kedua, diselesaikan dengan membuat 2 cron job dimana yang satu memiliki konfigurasi * 0-6,18-23 * * 1-5 dimana aturan itu membuat setiap menit pada jam 0 sampai jam 6 juga pada jam 18 sampai jam 23 pada hari Senin sampai Jumat untuk menjalankan command 'find '/home/prabu/soal3/Koleksi.zip' -exec /usr/bin/unzip -P $(date +%d%m%Y) {} \; -delete' dimana command tersebut mencari file Koleksi.zip dan menjalankan 'unzip' dengan memasukkan password berupa tanggal sekarang dan setelah itu menghapus file 'Koleksi.zip tersebut'. Cron job juga dibuat untuk hari Sabtu dan Minggu sehingga menjadi '* * * * 6-7'.
+Permasalahan kedua, dapat diselesaikan dengan menggunakan cron job dimana menit dibuat `0`, jam dibuat `18`, hari dibuat `1-5` dimana `1` adalah Senin dan `5` adalah Kamis. Cron jobs di atas jadi hanya perlu dikerjakan satu kali.
+
+*GAMBAR CRON 3e*
