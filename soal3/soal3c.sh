@@ -4,39 +4,25 @@ kucing(){
 	nomor=1
 	iterasi=1
 	while [[ $iterasi -lt 24 ]]; do
-		wget -a Foto.log "https://loremflickr.com/320/240/kitten"
-		if [[ $nomor -ne 1 ]]; then
-			md5sum < kitten > testPic
-			file1=testPic
-			i=1
-			sama=1
-			while [[ $i -lt $nomor ]]; do
-				if [[ $i -lt 10 ]]; then
-					md5sum < Koleksi_0$i > compPic
-				else
-					md5sum < Koleksi_$i > compPic				
-				fi
-				file2=compPic
-				if cmp -s file1 file2; then
-					$sama=2
-					let $nomor=$nomor-1
-					break
-				fi
-				let i=$i+1
-			done
-			rm testPic
-			rm compPic
-			if [[ $sama -eq 1 ]]; then
-				if [[ $nomor -lt 10 ]]; then
-					mv kitten Koleksi_0$nomor
-				else
-					mv kitten Koleksi_$nomor
-				fi
-			else
+		wget -o temp.log "https://loremflickr.com/320/240/kitten"
+		if [[ $nomor -gt 1 ]]; then
+			word=`awk '/Location/{print $2}' temp.log`
+			compare=`awk -v w="$word" '$0 ~ w {print 1}' Foto.log`
+			# Ada yang sama
+			if [[ ${#compare} -gt 1 ]]; then
 				rm kitten
+				echo "Sama"
+				let nomor=$nomor-1
+			else
+			# Berbeda semua
+				echo "Tidak sama"
+				mv kitten Koleksi_$(printf %02d "$nomor")
+				cat temp.log >> Foto.log
 			fi
+			rm temp.log
 		else
 			mv kitten Koleksi_01
+			mv temp.log Foto.log
 		fi
 		let nomor=$nomor+1
 		let iterasi=$iterasi+1
@@ -53,39 +39,25 @@ kelinci(){
 	nomor=1
 	iterasi=1
 	while [[ $iterasi -lt 24 ]]; do
-		wget -a Foto.log "https://loremflickr.com/320/240/bunny"
-		if [[ $nomor -ne 1 ]]; then
-			md5sum < bunny > testPic
-			file1=testPic
-			i=1
-			sama=1
-			while [[ $i -lt $nomor ]]; do
-				if [[ $i -lt 10 ]]; then
-					md5sum < Koleksi_0$i > compPic
-				else
-					md5sum < Koleksi_$i > compPic				
-				fi
-				file2=compPic
-				if cmp -s file1 file2; then
-					$sama=2
-					let $nomor=$nomor-1
-					break
-				fi
-				let i=$i+1
-			done
-			rm testPic
-			rm compPic
-			if [[ $sama -eq 1 ]]; then
-				if [[ $nomor -lt 10 ]]; then
-					mv bunny Koleksi_0$nomor
-				else
-					mv bunny Koleksi_$nomor
-				fi
-			else
+		wget -o temp.log "https://loremflickr.com/320/240/bunny"
+		if [[ $nomor -gt 1 ]]; then
+			word=`awk '/Location/{print $2}' temp.log`
+			compare=`awk -v w="$word" '$0 ~ w {print 1}' Foto.log`
+			# Ada yang sama
+			if [[ ${#compare} -gt 1 ]]; then
 				rm bunny
+				echo "Sama"
+				let nomor=$nomor-1
+			else
+			# Berbeda semua
+				echo "Tidak sama"
+				mv bunny Koleksi_$(printf %02d "$nomor")
+				cat temp.log >> Foto.log
 			fi
+			rm temp.log
 		else
 			mv bunny Koleksi_01
+			mv temp.log Foto.log
 		fi
 		let nomor=$nomor+1
 		let iterasi=$iterasi+1
@@ -98,13 +70,13 @@ kelinci(){
 	mv Foto.log $FOLDER
 }
 
-path=/home/prabu/Desktop/sisop/modul1/praktikum/soal3
-prevFOLDER=$(date -d 'yesterday' +%d%m%Y)
+path=`pwd`
+prevFOLDER=$(date -d 'yesterday' +%d%m%SY)
 
 if [ -d "$path/Kelinci_$prevFOLDER" ]; then
 	kucing
 elif [ -d "$path/Kucing_$prevFOLDER" ]; then
 	kelinci
 else
-	kucing
+	kelinci
 fi
