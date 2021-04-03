@@ -23,10 +23,10 @@ eval $get_error_msg
 for u in "${!user[@]}"
 do
     # count error
-    user_error[$u]=$(/bin/grep -E "ERROR.*$u" $syslog | wc -l)
+    user_error[$u]=$(/bin/grep -E "ERROR.*\($u" $syslog | wc -l)
 
     # count info
-    user_info[$u]=$(/bin/grep -E "INFO.*$u" $syslog | wc -l)
+    user_info[$u]=$(/bin/grep -E "INFO.*\($u" $syslog | wc -l)
 done
 
 # looping nulis format csv
